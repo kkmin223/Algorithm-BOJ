@@ -1,54 +1,31 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
 using namespace std;
-vector<pair<string,int>> book(1001);
-int n;
-bool cmp(const pair<string,int> &a,const pair<string,int> &b){
-  return a.second < b.second;
-}
-/*
-void insert_vector(string A){
-  bool insert=false;
-  if(book.empty())
-    book.push_back(make_pair(A,1)); 
-  else{
-    for(int i=0;i<book.size();i++){
-    if(A==book[i].first){
-      book[i].second++;
-      insert=true;
-      }
-    }
-  }
-  if(!insert)
-    book.push_back(make_pair(A,1));  
-} 
-*/
-int main(){
+int main() {
+  int n;
+  int cnt=0,Max=0;
+  int top_book_num=0;
   cin>>n;
+  vector<string> book(n);
   for(int i=0;i<n;i++){
-    string A;
-    cin >> A;
-    //insert_vector(A);
-    bool insert=false;
-  if(book.empty()){
-    book.push_back(make_pair(A,1)); 
-    cout << book.front().first<<endl;
+    cin >> book[i];
   }
-  else{
-    for(int i=0;i<book.size();i++){
-    if(A==book[i].first){
-      book[i].second++;
-      insert=true;
+  sort(book.begin(),book.end());
+  Max=cnt=1;
+  top_book_num=0;
+  for(int i=1;i<n;i++){
+      if(book[i-1]==book[i]){
+        cnt++;
       }
-    }
+      else{
+        cnt=1;
+      }
+      if(cnt>Max){
+          Max=cnt;
+          top_book_num=i;
+        }
   }
-  if(!insert)
-    book.push_back(make_pair(A,1));  
-  }
-  //sort(book.begin(),book.end(),cmp);
-  //sort(book.begin(),book.end());
-  cout << book.front().second<<endl;
-  cout << book.front().first<<endl;
+  cout<<book[top_book_num]<<endl;
 }
